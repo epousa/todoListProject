@@ -14,20 +14,23 @@ type Task struct {
 	timestampCom string //timestamp of completion
 }
 
-func AddTask(todoList []Task, todo string) []Task {
+func AddTask(todoList *[]Task, todo string) {
 	newTask := Task{}
-	newTask.id = len(todoList) + 1
+	newTask.id = len(*todoList) + 1
 	newTask.todo = todo
 	newTask.state = false
 	newTask.timestampReg = time.Now().String()
 	newTask.timestampCom = ""
 
-	todoList = append(todoList, newTask)
-	return todoList
+	*todoList = append(*todoList, newTask)
 }
 
-func CheckTodoList(todoList []Task) {
-	for _, task := range todoList {
+func DoneTask(todoList *[]Task, taskID int) {
+	(*todoList)[taskID].state = true
+}
+
+func CheckTodoList(todoList *[]Task) {
+	for _, task := range *todoList {
 		fmt.Printf("Task id: %dTask todo: %sTask state: %tTask timestampReg: %s Task timestampCom: %s", task.id, task.todo, task.state, task.timestampReg, task.timestampCom)
 	}
 }

@@ -13,7 +13,7 @@ type User struct {
 	password []byte
 }
 
-func AddUser(users []User, username string, password []byte) []User {
+func AddUser(users *[]User, username string, password []byte) {
 	newUser := User{}
 	hash, err := bcrypt.GenerateFromPassword(password, 15)
 	if err != nil {
@@ -22,9 +22,7 @@ func AddUser(users []User, username string, password []byte) []User {
 	newUser.username = username
 	newUser.password = hash
 
-	users = append(users, newUser)
-
-	return users
+	*users = append(*users, newUser)
 }
 
 func FindUser(users []User, username string, password string) int {
@@ -32,10 +30,10 @@ func FindUser(users []User, username string, password string) int {
 	return -1
 }
 
-func ListUsers(users []User) {
-	numberUsers := len(users)
+func ListUsers(users *[]User) {
+	numberUsers := len(*users)
 	fmt.Printf("Number of registered users %d;\n", numberUsers)
-	for _, user := range users {
+	for _, user := range *users {
 		fmt.Printf("\nUsername: %sPassword: %d\n", user.username, user.password)
 	}
 }

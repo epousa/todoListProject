@@ -13,18 +13,18 @@ var users []userOp.User
 var todoList []taskOp.Task
 
 // Each user corresponds an array of tasks
-// key -> userID / value -> todoList
+// key -> User Position in the array of users / value -> todoList
 var database map[int][]taskOp.Task
 
 func main() {
 
 	if len(users) == 0 {
 		username, password := menu.InitMenu()
-		users = userOp.AddUser(users, username, password)
+		userOp.AddUser(&users, username, password)
 	}
 
-	userOp.ListUsers(users)
+	userOp.ListUsers(&users)
 
-	todoList = taskOp.AddTask(todoList, "Do a workout")
-	taskOp.CheckTodoList(todoList)
+	taskOp.AddTask(&todoList, "Do a workout")
+	taskOp.CheckTodoList(&todoList)
 }
