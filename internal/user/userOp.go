@@ -1,8 +1,10 @@
 package userOp
 
 import (
-	"crypto/sha256"
 	"fmt"
+	"log"
+
+	"golang.org/x/crypto/bcrypt"
 )
 
 // users info
@@ -11,13 +13,14 @@ type User struct {
 	password []byte
 }
 
-func AddUser(users []User, username string, password string) []User {
+func AddUser(users []User, username string, password []byte) []User {
 	newUser := User{}
-	hash := sha256.New()
-
+	hash, err := bcrypt.GenerateFromPassword(password, 15)
+	if err != nil {
+		log.Fatal(err)
+	}
 	newUser.username = username
-	hash.Write([]byte(password))
-	newUser.password = hash.Sum(nil)
+	newUser.password = hash
 
 	users = append(users, newUser)
 
@@ -31,5 +34,8 @@ func FindUser(users []User, username string, password string) int {
 
 func ListUsers(users []User) {
 	numberUsers := len(users)
-	fmt.Println("Number of registered users ", numberUsers)
+	fmt.Printf("Number of registered users %d;\n", numberUsers)
+	for _, user := range users {
+		fmt.Printf("\nUsername: %sPassword: %d\n", user.username, user.password)
+	}
 }
