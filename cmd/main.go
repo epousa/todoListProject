@@ -3,19 +3,11 @@ package main
 import (
 	"fmt"
 
-	dbOp "github.com/epousa/todoListProject/internal/db"
-	taskOp "github.com/epousa/todoListProject/internal/task"
 	userOp "github.com/epousa/todoListProject/internal/user"
 )
 
-// users info
-type user struct {
-	username string
-	password string
-}
-
 // tasks info
-type task struct {
+type Task struct {
 	id           int    //task 1,2,3,4,5 ...
 	todo         string //what to do
 	state        bool   //completed or not
@@ -24,18 +16,17 @@ type task struct {
 }
 
 // Array of users
-var users []user
+var users []userOp.User
 
 // Array of tasks
-var todoList []task
+var todoList []Task
 
 // Each user corresponds an array of tasks
 // key -> user password hash / value -> todoList
-var database map[string][]task
+var database map[string][]Task
 
 func main() {
 	fmt.Println("My todoListProject !")
-	dbOp.HelloDb()
-	taskOp.HelloTask()
-	userOp.HelloUser()
+	users = userOp.AddUser(users, "eduardo", "somethin")
+	userOp.ListUsers(users)
 }
