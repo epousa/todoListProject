@@ -2,6 +2,10 @@ package main
 
 import (
 	"fmt"
+
+	dbOp "github.com/epousa/todoListProject/internal/db"
+	taskOp "github.com/epousa/todoListProject/internal/task"
+	userOp "github.com/epousa/todoListProject/internal/user"
 )
 
 // users info
@@ -31,4 +35,7 @@ var database map[string][]task
 
 func main() {
 	fmt.Println("My todoListProject !")
+	dbOp.HelloDb()
+	taskOp.HelloTask()
+	userOp.HelloUser()
 }
