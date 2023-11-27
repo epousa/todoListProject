@@ -17,14 +17,13 @@ var todoList []taskOp.Task
 var database map[int][]taskOp.Task
 
 func main() {
-
 	if len(users) == 0 {
 		username, password := menu.InitMenu()
 		userOp.AddUser(&users, username, password)
 	}
 
-	userOp.ListUsers(&users)
+	userOp.PrintUsers(&users)
 
 	taskOp.AddTask(&todoList, "Do a workout")
-	taskOp.CheckTodoList(&todoList)
+	taskOp.PrintTodoList(&todoList)
 }

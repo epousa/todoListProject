@@ -29,8 +29,9 @@ func DoneTask(todoList *[]Task, taskID int) {
 	(*todoList)[taskID].state = true
 }
 
-func CheckTodoList(todoList *[]Task) {
+func PrintTodoList(todoList *[]Task) {
 	for _, task := range *todoList {
 		fmt.Printf("Task id: %dTask todo: %sTask state: %tTask timestampReg: %s Task timestampCom: %s", task.id, task.todo, task.state, task.timestampReg, task.timestampCom)
 	}
+
 }

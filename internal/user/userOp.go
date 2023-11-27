@@ -30,7 +30,7 @@ func FindUser(users []User, username string, password string) int {
 	return -1
 }
 
-func ListUsers(users *[]User) {
+func PrintUsers(users *[]User) {
 	numberUsers := len(*users)
 	fmt.Printf("Number of registered users %d;\n", numberUsers)
 	for _, user := range *users {
