@@ -1,4 +1,4 @@
-package menu
+package view
 
 import (
 	"bufio"
@@ -10,7 +10,7 @@ import (
 	"gitlab.com/david_mbuvi/go_asterisks"
 )
 
-func InitMenu() (string, []byte) {
+func InitView() (string, []byte) {
 	//ask for admin user creation
 	fmt.Println("Welcome! Create an admin account to start.")
 	fmt.Printf("Enter your admin username: ")

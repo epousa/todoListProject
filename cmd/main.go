@@ -1,9 +1,9 @@
 package main
 
 import (
-	"github.com/epousa/todoListProject/internal/menu"
 	taskOp "github.com/epousa/todoListProject/internal/task"
 	userOp "github.com/epousa/todoListProject/internal/user"
+	"github.com/epousa/todoListProject/internal/view"
 )
 
 // Array of users
@@ -12,7 +12,7 @@ var users []userOp.User
 func main() {
 
 	if len(users) == 0 {
-		username, password := menu.InitMenu()
+		username, password := view.InitView()
 		userOp.AddUser(&users, username, password)
 		userOp.AddUser(&users, username, password)
 	}
