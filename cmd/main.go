@@ -1,6 +1,8 @@
 package main
 
 import (
+	"fmt"
+
 	"github.com/epousa/todoListProject/internal/menu"
 	taskOp "github.com/epousa/todoListProject/internal/task"
 	userOp "github.com/epousa/todoListProject/internal/user"
@@ -22,8 +24,16 @@ func main() {
 		userOp.AddUser(&users, username, password)
 	}
 
-	userOp.PrintUsers(&users)
+	fmt.Println(userOp.FindUser(users, 1))
+	userOp.PrintUsers(users)
+	userOp.RemoveUser(&users, 1)
+	fmt.Println(userOp.FindUser(users, 1))
+	userOp.PrintUsers(users)
 
 	taskOp.AddTask(&todoList, "Do a workout")
+	fmt.Println(taskOp.FindTask(todoList, 1))
+	taskOp.PrintTodoList(&todoList)
+	taskOp.RemoveTask(&todoList, 1)
+	fmt.Println(taskOp.FindTask(todoList, 1))
 	taskOp.PrintTodoList(&todoList)
 }

@@ -25,8 +25,28 @@ func AddTask(todoList *[]Task, todo string) {
 	*todoList = append(*todoList, newTask)
 }
 
+func FindTask(todoList []Task, id int) int {
+	//find user in the list of structs and return its index
+	for i := 0; i < len(todoList); i++ {
+		if todoList[i].id == id {
+			return i
+		}
+	}
+	return -1
+}
+
+func RemoveTask(todoList *[]Task, id int) int {
+	taskIndex := FindTask(*todoList, id)
+	if taskIndex == -1 {
+		return -1
+	}
+	*todoList = append((*todoList)[:taskIndex], (*todoList)[taskIndex+1:]...)
+	return 0
+}
+
 func DoneTask(todoList *[]Task, taskID int) {
 	(*todoList)[taskID].state = true
+	(*todoList)[taskID].timestampCom = time.Now().String()
 }
 
 func PrintTodoList(todoList *[]Task) {

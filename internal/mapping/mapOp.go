@@ -1,4 +1,4 @@
-package dbOp
+package mapping
 
 import (
 	"fmt"
