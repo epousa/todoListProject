@@ -4,25 +4,29 @@ import (
 	"fmt"
 	"log"
 
+	taskOp "github.com/epousa/todoListProject/internal/task"
 	"golang.org/x/crypto/bcrypt"
 )
 
 // users info
 type User struct {
-	id       int
-	username string
-	password []byte
+	Id       int
+	Username string
+	Password []byte
+	TodoList []taskOp.Task
 }
 
 func AddUser(users *[]User, username string, password []byte) {
 	newUser := User{}
+
 	hash, err := bcrypt.GenerateFromPassword(password, 15)
 	if err != nil {
 		log.Fatal(err)
 	}
-	newUser.id = len(*users) + 1
-	newUser.username = username
-	newUser.password = hash
+
+	newUser.Id = len(*users)
+	newUser.Username = username
+	newUser.Password = hash
 
 	*users = append(*users, newUser)
 }
@@ -30,7 +34,7 @@ func AddUser(users *[]User, username string, password []byte) {
 func FindUser(users []User, id int) int {
 	//find user in the list of structs and return its index
 	for i := 0; i < len(users); i++ {
-		if users[i].id == id {
+		if users[i].Id == id {
 			return i
 		}
 	}
@@ -50,6 +54,6 @@ func PrintUsers(users []User) {
 	numberUsers := len(users)
 	fmt.Printf("Number of registered users %d;\n", numberUsers)
 	for _, user := range users {
-		fmt.Printf("\nUserID: %dUsername: %sPassword: %d\n", user.id, user.username, user.password)
+		fmt.Println("User Info:\n", user)
 	}
 }
