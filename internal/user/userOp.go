@@ -41,6 +41,16 @@ func FindUser(users []User, id int) int {
 	return -1
 }
 
+func FindUserByUserNamePassword(users []User, username string, password []byte) (bool, int) {
+	//find user in the list of structs and return its index
+	for i := 0; i < len(users); i++ {
+		if users[i].Username == username && bcrypt.CompareHashAndPassword(users[i].Password, password) == nil {
+			return true, i
+		}
+	}
+	return false, -1
+}
+
 func RemoveUser(users *[]User, id int) int {
 	userIndex := FindUser(*users, id)
 	if userIndex == -1 {

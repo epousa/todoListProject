@@ -23,6 +23,7 @@ func AddTask(todoList *[]Task, todo string) {
 	newTask.TimestampCom = ""
 
 	*todoList = append(*todoList, newTask)
+	fmt.Println("Task was added successfully !")
 }
 
 func FindTask(todoList []Task, id int) int {
