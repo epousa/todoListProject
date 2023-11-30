@@ -17,7 +17,7 @@ func AdminChoices(choice string, userID int) bool {
 	case "Add Task":
 		taskOp.AddTask(&users[userID].TodoList, view.AddTaskView())
 		break
-	case "Remove Task":
+	case "Completed Task":
 		taskOp.DoneTask(&users[userID].TodoList, view.RemoveTaskView())
 		break
 	case "Check todo List":
@@ -45,6 +45,12 @@ func StandardChoices(choice string, userID int) bool {
 	switch choice {
 	case "Add Task":
 		taskOp.AddTask(&users[userID].TodoList, view.AddTaskView())
+		break
+	case "Completed Task":
+		taskOp.DoneTask(&users[userID].TodoList, view.RemoveTaskView())
+		break
+	case "Check todo List":
+		taskOp.PrintTodoList(&users[userID].TodoList)
 		break
 	case "Log out":
 		return true
