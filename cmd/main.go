@@ -17,6 +17,22 @@ func AdminChoices(choice string, userID int) bool {
 	case "Add Task":
 		taskOp.AddTask(&users[userID].TodoList, view.AddTaskView())
 		break
+	case "Remove Task":
+		taskOp.DoneTask(&users[userID].TodoList, view.RemoveTaskView())
+		break
+	case "Check todo List":
+		taskOp.PrintTodoList(&users[userID].TodoList)
+		break
+	case "Access users list":
+		userOp.PrintUsers(users)
+		break
+	case "Add user":
+		username, password := view.InitView()
+		userOp.AddUser(&users, username, password)
+		break
+	case "Remove user":
+		userOp.RemoveUser(&users, view.RemoveUserView())
+		break
 	case "Log out":
 		return true
 	}
@@ -25,6 +41,7 @@ func AdminChoices(choice string, userID int) bool {
 }
 
 func StandardChoices(choice string, userID int) bool {
+
 	switch choice {
 	case "Add Task":
 		taskOp.AddTask(&users[userID].TodoList, view.AddTaskView())
@@ -39,14 +56,16 @@ func StandardChoices(choice string, userID int) bool {
 func Core() {
 	username, password := view.InitView()
 	exists, userIndex := userOp.FindUserByUserNamePassword(users, username, password)
+
 	if exists {
+		fmt.Printf("\n\n### You logged in successfully! :) ###\n\n")
 		if users[userIndex].Id == 0 {
 			//admin choices
-			for AdminChoices(view.AdminView(), userIndex) != true {
+			for AdminChoices(view.AdminView(users[userIndex].Username), userIndex) != true {
 			}
 		} else {
 			//standard users choices
-			for StandardChoices(view.StandardView(), userIndex) != true {
+			for StandardChoices(view.StandardView(users[userIndex].Username), userIndex) != true {
 			}
 		}
 	} else {
@@ -72,7 +91,7 @@ func main() {
 		fmt.Println("Welcome! Create an admin account to start.")
 		username, password := view.InitView()
 		userOp.AddUser(&users, username, password)
-		for AdminChoices(view.AdminView(), 0) != true {
+		for AdminChoices(view.AdminView(users[0].Username), 0) != true {
 		}
 	}
 
